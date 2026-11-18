@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carro Fácil - A Sua Agência de Veículos</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config & Custom CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brandBlue: '#0b3c7c',
+                        brandGold: '#cfa333',
+                        brandGoldLight: '#e6bd4f',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Swiper Styles */
+        .swiper-button-next, .swiper-button-prev {
+            color: #cfa333 !important;
+            transform: scale(0.6);
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 24px !important;
+            font-weight: bold;
+        }
+        .swiper-pagination-bullet-active {
+            background: #cfa333 !important;
+        }
+        
+        /* Floating WhatsApp Button */
+        .float-wa {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .float-wa:hover {
+            transform: scale(1.1);
+            color: #FFF;
+        }
+        
+        .hero-slide-bg {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }      
+
+        /* CONTROLES DE TAMANHO DA LOGO NO HEADER */
+        /* Tamanho para Computador/Telas Grandes */
+        .logo-header {
+            width: 180px; /* AUMENTE OU DIMINUA ESTE VALOR PARA ALTERAR O TAMANHO */
+            height: auto; 
+            object-fit: contain;
+        }
+
+        /* Tamanho para Celular/Telas Menores */
+        @media (max-width: 768px) {
+            .logo-header {
+                width: 130px; /* AUMENTE OU DIMINUA ESTE VALOR PARA O MOBILE */
+            }
+        }
+    </style>
+
+    <!-- PAINEL CENTRAL DE CORES DA LOJA -->
+    <style>
+        :root {
+            /* 1. COR DO HEADER */
+            --cor-header: #0b3c7c;
+
+            /* 2. COR DA ÁREA DE ENDEREÇO (AO LADO DO MAPA) */
+            --cor-fundo-mapa: #0b3c7c;
+
+            /* 3. COR DOS TEXTOS AZUIS (Títulos das seções e preços dos carros) */
+            --cor-textos-azuis: #0b3c7c;
+
+            /* 4. COR DOS BOTÕES DOURADOS ("Ver Estoque") */
+            --cor-botao-dourado: #cfa333;
+            --cor-botao-dourado-hover: #e6bd4f; /* Cor ao passar o mouse */
+            --cor-texto-botao-dourado: #0b3c7c; /* Cor da letra dentro do botão */
+
+            /* 5. COR DOS ÍCONES DOURADOS (Mapa, relógio, setas e bolinhas dos slides) */
+            --cor-icones-dourados: #cfa333;
+
+            /* 6. COR DAS LINHAS DOURADAS (Traços abaixo dos títulos e linha do financiamento) */
+            --cor-linhas-douradas: #cfa333;
+        }
+
+        /* --- NÃO PRECISA MEXER DAQUI PARA BAIXO --- */
+        
+        /* Aplica a cor no Header */
+        header.bg-brandBlue {
+            background-color: var(--cor-header) !important;
+        }
+
+        /* Aplica a cor na área de endereço do Mapa */
+        div.bg-brandBlue {
+            background-color: var(--cor-fundo-mapa) !important;
+        }
+
+        /* Aplica a cor nos textos azuis (Títulos e Preços) */
+        h2.text-brandBlue,
+        h3.text-brandBlue,
+        span.text-brandBlue {
+            color: var(--cor-textos-azuis) !important;
+        }
+
+        /* Aplica a cor no botão dourado "Ver Estoque" */
+        a.bg-brandGold {
+            background-color: var(--cor-botao-dourado) !important;
+            color: var(--cor-texto-botao-dourado) !important;
+        }
+        a.bg-brandGold:hover {
+            background-color: var(--cor-botao-dourado-hover) !important;
+        }
+
+        /* Aplica a cor nos ícones dourados e controles dos slides */
+        i.text-brandGold,
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--cor-icones-dourados) !important;
+        }
+        .swiper-pagination-bullet-active {
+            background-color: var(--cor-icones-dourados) !important;
+        }
+
+        /* Aplica a cor nas linhas e divisórias douradas */
+        div.bg-brandGold {
+            background-color: var(--cor-linhas-douradas) !important;
+        }
+        section.border-brandGold {
+            border-color: var(--cor-linhas-douradas) !important;
+        }
+    </style>
+
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="bg-brandBlue shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            
+            <div class="flex items-center">
+                <img src="Gemini_Generated_Image_3f447o3f447o3f44-Photoroom.png" alt="Logo Carro Fácil" class="logo-header">
+            </div>
+            
+            <a href="https://wa.me/5521998278563?text=Ol%C3%A1!%20Quero%20agendar%20uma%20visita!" target="_blank" class="hidden md:flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full font-semibold transition-colors shadow-sm">
+                <i class="fa-brands fa-whatsapp text-xl"></i> Fale Conosco
+            </a>
+
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative w-full h-[60vh] min-h-[400px]">
+        <!-- Swiper -->
+        <div class="swiper hero-swiper w-full h-full">
+            <div class="swiper-wrapper">
+                <!-- Slides with Unsplash Placeholder Images (Happy families/buyers) -->
+                <div class="swiper-slide hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1579208035251-5c8e3170e176?auto=format&fit=crop&q=80&w=1200')"></div>
+                <div class="swiper-slide hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1200')"></div>
+                <div class="swiper-slide hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1563219782-b7ce115f8a0f?auto=format&fit=crop&q=80&w=1200')"></div>
+                <div class="swiper-slide hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=1200')"></div>
+                <div class="swiper-slide hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1518776077372-8178129202fc?auto=format&fit=crop&q=80&w=1200')"></div>
+                <div class="swiper-slide hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1601007873634-11885664188b?auto=format&fit=crop&q=80&w=1200')"></div>
+                <div class="swiper-slide hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=1200')"></div>
+            </div>
+            <!-- Overlay Gradient & Text -->
+            <div class="absolute inset-0 bg-gradient-to-t from-brandBlue/90 via-brandBlue/40 to-transparent z-10 flex flex-col justify-end items-center text-center pb-16 px-4 pointer-events-none">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">A Chave do Seu Novo Carro Está Aqui!</h2>
+                <p class="text-lg md:text-xl text-brandGoldLight font-medium mb-6 drop-shadow-md">Realizamos o seu sonho do carro próprio todos os dias.</p>
+                <a href="#estoque" class="pointer-events-auto bg-brandGold hover:bg-brandGoldLight text-brandBlue font-bold text-lg px-8 py-3 rounded-full transition-transform transform hover:scale-105 shadow-xl">
+                    Ver Estoque
+                </a>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Car Catalog Section -->
+    <section id="estoque" class="py-16 container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold text-brandBlue">Nosso Estoque</h2>
+            <div class="w-24 h-1 bg-brandGold mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="car-grid">
+            <!-- Car cards will be generated here via JS to keep HTML clean while rendering all 10 images per car as requested -->
+        </div>
+    </section>
+
+<!-- Financing Copy Section -->
+    <section class="bg-white py-12 border-b-4 border-brandGold">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl md:text-3xl font-bold text-brandBlue mb-3">Financiamento Facilitado</h3>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-8 text-lg">Trabalhamos com diversos bancos para aprovar seu crédito na hora! As melhores taxas do mercado para você sair de carro novo hoje.</p>
+            
+            <!-- Bank Logo Placeholders -->
+<div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60">
+    
+    <!-- Troque o 'src' pelo nome exato do seu arquivo de imagem -->
+    <img src="bradesco-Photoroom.png" alt="" class="h-12 md:h-16 object-contain">
+    
+    <img src="santander-Photoroom.png" alt="" class="h-12 md:h-16 object-contain">
+    
+    <img src="images-Photoroom.png" alt="" class="h-12 md:h-16 object-contain">
+    
+    <img src="safra-Photoroom.png" alt="" class="h-12 md:h-16 object-contain">
+    
+    <img src="image-Photoroom.png" alt="" class="h-12 md:h-16 object-contain">
+    
+</div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="bg-gray-200 py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-extrabold text-brandBlue">Venha nos Fazer uma Visita</h2>
+                <div class="w-16 h-1 bg-brandGold mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-1/3 p-8 bg-brandBlue text-white flex flex-col justify-center">
+                    <i class="fa-solid fa-map-location-dot text-5xl text-brandGold mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Carro Fácil</h3>
+                    <p class="mb-4 text-gray-300 leading-relaxed">
+                        <i class="fa-solid fa-location-dot mr-2 text-brandGold"></i>
+                        Av. Brg. Lima e Silva, 322 - Lote 99<br>
+                        Parque Duque, Duque de Caxias - RJ<br>
+                        25085-132
+                    </p>
+                    <p class="text-gray-300">
+                        <i class="fa-solid fa-clock mr-2 text-brandGold"></i>
+                        Seg a Sex: 08h às 18h<br>
+                        Sáb: 08h às 14h
+                    </p>
+                </div>
+                <div class="md:w-2/3 h-80 md:h-auto w-full">
+                    <!-- Google Maps Iframe -->
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Av.%20Brg.%20Lima%20e%20Silva,%20322%20-%20Lote%2099%20-%20Parque%20Duque,%20Duque%20de%20Caxias%20-%20RJ&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="flex items-center">
+                <img src="Gemini_Generated_Image_3f447o3f447o3f44-Photoroom.png" alt="Logo Carro Fácil" class="logo-header">
+            </div>
+            </div>
+            <p>&copy; 2024 Carro Fácil Agência de Veículos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp CTA -->
+    <a href="https://wa.me/5521998278563?text=Ol%C3%A1!%20Quero%20agendar%20uma%20visita!" target="_blank" class="float-wa">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialization Scripts -->
+    <script>
+        // Dados dos veículos solicitados
+        // Dados dos veículos solicitados com as listas de imagens
+        const carsData = [
+            { 
+                name: "Honda Civic G10", 
+                desc: "Design esportivo, conforto premium e tecnologia de ponta. O sedan que redefiniu a categoria.", 
+                price: "A partir de R$ 1.899/mês",
+                images: ["1 - civic.jpg", "2 - civic.jpg", "3 - civic.jpg", "4 - civic.jpg", "5 - civic.jpg", "6 - civic.jpg", "7 - civic.jpg", "8 - civic.jpg", "9 - civic.jpg", "10 - civic.jpg", ] // <-- TROQUE PELOS NOMES DAS SUAS FOTOS AQUI
+            },
+            { 
+                name: "Chevrolet Cruze", 
+                desc: "Motor turbo potente e econômico, com excelente espaço interno e conectividade avançada.", 
+                price: "A partir de R$ 1.599/mês",
+                images: ["1 - cruze.jpg", "2 - cruze.jpg", "3 - cruze.jpg", "4 - cruze.jpg", "5 - cruze.jpg", "6 - cruze.jpg", "7 - cruze.jpg", "8 - cruze.jpg", "9 - cruze.jpg", "10 - cruze.jpg"] // Pode colocar quantas fotos quiser
+            },
+            { 
+                name: "Mitsubishi L200", 
+                desc: "Força bruta e resistência 4x4. A picape ideal para o trabalho pesado e aventuras off-road.", 
+                price: "A partir de R$ 2.499/mês",
+                images: ["1 - l200.jpg","2 - l200.jpg", "3 - l200.jpg", "4 - l200.jpg", "5 - l200.jpg", "6 - l200.jpg", "7 - l200.jpg", "8 - l200.jpg", "9 - l200.jpg", "10 - l200.jpg",]
+            },
+            { 
+                name: "Jeep Renegade", 
+                desc: "O SUV compacto mais desejado do Brasil. Estilo icônico com ótimo desempenho urbano.", 
+                price: "A partir de R$ 1.399/mês",
+                images: ["1 - renegade.jpg", "2 - renegade.jpg", "3 - renegade.jpg", "4 - renegade.jpg", "5 - renegade.jpg", "6 - renegade.jpg", "7 - renegade.jpg", "8 - renegade.jpg", "9 - renegade.jpg", "10 - renegade.jpg"]
+            },
+            { 
+                name: "Fiat Doblô", 
+                desc: "Versatilidade imbatível para o seu negócio ou família grande. Espaço de sobra.", 
+                price: "A partir de R$ 999/mês",
+                images: ["1 - doblo.jpg", "2 - doblo.jpg", "3 - doblo.jpg", "4 - doblo.jpg", "5 - doblo.jpg", "6 - doblo.jpg", "7 - doblo.jpg", "8 - doblo.jpg", "9 - doblo.jpg", "10 - doblo.jpg"]
+            },
+            { 
+                name: "Jeep Compass", 
+                desc: "Sofisticação, segurança e o puro DNA Jeep. O SUV médio líder de mercado.", 
+                price: "A partir de R$ 2.199/mês",
+                images: ["1 - compass.jpg", "2 - compass.jpg", "3 - compass.jpg", "4 - compass.jpg", "5 - compass.jpg", "6 - compass.jpg", "7 - compass.jpg", "8 - compass.jpg", "9 - compass.jpg", "10 - compass.jpg"]
+            },
+            { 
+                name: "Toyota Corolla XEI 2.0", 
+                desc: "Sinônimo de confiabilidade, conforto absoluto e excelente valor de revenda.", 
+                price: "A partir de R$ 1.999/mês",
+                images: ["1 - corolla.jpg", "2 - corolla.jpg", "3 - corolla.jpg", "4 - corolla.jpg", "5 - corolla.jpg", "6 - corolla.jpg", "7 - corolla.jpg", "8 - corolla.jpg", "9 - corolla.jpg", "10 - corolla.jpg"]
+            },
+            { 
+                name: "VW Voyage", 
+                desc: "Sedan popular, econômico e com a mecânica robusta e confiável da Volkswagen.", 
+                price: "A partir de R$ 799/mês",
+                images: ["1 - voyage.jpg", "2 - voyage.jpg", "3 - voyage.jpg", "4 - voyage.jpg", "5 - voyage.jpg", "6 - voyage.jpg", "7 - voyage.jpg", "8 - voyage.jpg", "9 - voyage.jpg", "10 - voyage.jpg"]
+            },
+            { 
+                name: "Renault Duster", 
+                desc: "Robustez, altura do solo elevada e o melhor custo-benefício da categoria SUV.", 
+                price: "A partir de R$ 1.199/mês",
+                images: ["1 - duster.jpg", "2 - duster.jpg", "3 - duster.jpg", "4 - duster.jpg", "5 - duster.jpg", "6 - duster.jpg", "7 - duster.jpg", "8 - duster.jpg", "9 - duster.jpg", "10 - duster.jpg"]
+            }
+        ];
+
+        const carGrid = document.getElementById('car-grid');
+        const phone = "5521998278563";
+
+        // Gerar os cards dos carros
+        carsData.forEach((car, index) => {
+            // Mensagem dinâmica do WhatsApp
+            const message = encodeURIComponent(`Olá! Quero agendar uma visita pra ver o ${car.name}`);
+            const waLink = `https://wa.me/${phone}?text=${message}`;
+
+            // Criar os slides puxando as imagens reais do array "images" de cada carro
+            let swiperSlides = '';
+            car.images.forEach((foto, i) => {
+                swiperSlides += `
+                    <div class="swiper-slide">
+                        <img src="${foto}" alt="${car.name} Foto ${i + 1}" onclick="openLightbox(${index}, ${i})" class="w-full h-56 object-cover cursor-pointer hover:opacity-95 transition-opacity" title="Clique para ampliar">
+                    </div>
+                `;
+            });
+
+            const cardHTML = `
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex flex-col">
+                    
+                    <div class="swiper car-swiper-${index} w-full relative group">
+                        <div class="swiper-wrapper">
+                            ${swiperSlides}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-2xl font-bold text-gray-800">${car.name}</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">${car.desc}</p>
+                        
+                        <div class="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-5 text-center">
+                            <span class="text-brandBlue font-extrabold text-lg">${car.price}</span>
+                        </div>
+                        
+                        <a href="${waLink}" target="_blank" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-md">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> Consultar
+                        </a>
+                    </div>
+                </div>
+            `;
+            carGrid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        // Inicializar Swiper do Hero
+        const heroSwiper = new Swiper('.hero-swiper', {
+            loop: true,
+            effect: 'fade',
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+        });
+
+        // Inicializar Swipers individuais dos Carros
+        carsData.forEach((_, index) => {
+            new Swiper(`.car-swiper-${index}`, {
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        });
+
+        // Lógica do Popup (Lightbox) para ampliar as fotos
+        let lightboxSwiper = null;
+
+        function openLightbox(carIndex, photoIndex) {
+            const car = carsData[carIndex];
+            const modal = document.getElementById('lightbox-modal');
+            const wrapper = document.getElementById('lightbox-wrapper');
+            const title = document.getElementById('lightbox-title');
+
+            title.textContent = car.name;
+            wrapper.innerHTML = '';
+
+            car.images.forEach((foto, i) => {
+                wrapper.insertAdjacentHTML('beforeend', `
+                    <div class="swiper-slide flex items-center justify-center">
+                        <img src="${foto}" alt="${car.name} Foto ${i + 1}" class="max-h-[80vh] max-w-full object-contain rounded-lg shadow-2xl">
+                    </div>
+                `);
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+
+            if (lightboxSwiper) {
+                lightboxSwiper.destroy(true, true);
+            }
+
+            lightboxSwiper = new Swiper('.lightbox-swiper', {
+                initialSlide: photoIndex,
+                loop: true,
+                keyboard: {
+                    enabled: true,
+                },
+                pagination: {
+                    el: '.lightbox-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.lightbox-next',
+                    prevEl: '.lightbox-prev',
+                },
+            });
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Fechar ao apertar a tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+
+    <!-- Popup (Lightbox) de Fotos Ampliadas -->
+    <div id="lightbox-modal" onclick="if(event.target === this) closeLightbox()" class="fixed inset-0 bg-black/90 z-[200] hidden flex-col items-center justify-center p-4">
+        <div class="w-full max-w-5xl flex justify-between items-center mb-3 px-2">
+            <h3 id="lightbox-title" class="text-white text-xl md:text-2xl font-bold"></h3>
+            <button onclick="closeLightbox()" class="text-white hover:text-brandGold text-4xl leading-none font-bold px-2 cursor-pointer">&times;</button>
+        </div>
+        
+        <div class="swiper lightbox-swiper w-full max-w-5xl">
+            <div class="swiper-wrapper" id="lightbox-wrapper">
+                <!-- Fotos ampliadas inseridas via JS -->
+            </div>
+            <div class="swiper-pagination lightbox-pagination mt-4"></div>
+            <div class="swiper-button-next lightbox-next"></div>
+            <div class="swiper-button-prev lightbox-prev"></div>
+        </div>
+    </div>
+</body>
+</html>
